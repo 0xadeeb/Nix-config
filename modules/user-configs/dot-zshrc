@@ -121,8 +121,8 @@ alias tp='trash-put'
 alias ln='ln -i'
 alias eb='earbuds'
 alias ps='procs'
-alias yay='paru'
 alias cdr='cd $(git rev-parse --show-toplevel)'
+alias emacs='emacs -nw -Q'
 
 #Add user's private bin to PATH
 if [ -d "$HOME/.local/bin" ] ; then

@@ -9,26 +9,6 @@
         [
         ];
 
-    # Use the systemd-boot EFI boot loader.
-    boot = {
-        kernelPackages = pkgs.linuxPackages_latest;
-        supportedFilesystems = [ "btrfs" ];
-        loader = {
-            efi = {
-                canTouchEfiVariables = true;
-                # efiSysMountPoint = "/boot/EFI";
-            };
-            grub = {
-                enable = true;
-                devices = ["nodev"];
-                efiSupport = true;
-                useOSProber = true;
-                configurationLimit = 5;
-            };
-            # timeout = 5;
-        };
-    };
-
     # Nix Packages collection configuration
     nixpkgs.config = {
         allowBroken = false;
@@ -56,8 +36,8 @@
         # useXkbConfig = true; # use xkbOptions in tty.
     };
 
-    # Enable the X11 windowing system.
     services = {
+        # Enable the X11 windowing system.
         xserver = {
             enable = true;
             layout = "us";
@@ -84,20 +64,29 @@
                         blur = true;
                     };
                 };
-         };
-        };
-        upower = {
-            enable = true;
-            usePercentageForPolicy = true;
-            percentageLow = 20;
-            percentageCritical = 20;
-            percentageAction = 20;
-            criticalPowerAction = "PowerOff";
+            };
         };
         gvfs.enable = true;
         udisks2.enable = true;
         devmon.enable = true;
     };
+
+
+    # Power manager
+    services.auto-cpufreq.enable = true;
+    services.upower = {
+        enable = true;
+        usePercentageForPolicy = true;
+        percentageLow = 20;
+        percentageCritical = 10;
+        percentageAction = 10;
+        criticalPowerAction = "HybridSleep";
+    };
+
+    # Enable bluetooth
+    hardware.bluetooth.enable = true;
+    hardware.bluetooth.powerOnBoot = true;
+    services.blueman.enable = true;
 
     # Enable CUPS to print documents.
     # services.printing.enable = true;
@@ -109,7 +98,9 @@
     # Enable touchpad support (enabled default in most desktopManager).
     services.xserver.libinput.enable = true;
 
+    # Security
     security.polkit.enable = true;
+
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.adeeb = {
         isNormalUser = true;
@@ -117,16 +108,24 @@
         shell = pkgs.zsh;
         initialPassword = "password";
     };
-
     programs.zsh.enable = true;
+
+    # Splash screen
+    boot.plymouth.enable = true;
+
+    # Crontabs
+    services.fcron.enable = true;
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
+    programs.vim.defaultEditor = true;
     environment.systemPackages = with pkgs; [
         brightnessctl
         dunst
         fcron
         git
         glib
+        gparted
         gnome.zenity
         gnumake
         lxqt.lxqt-policykit
@@ -137,7 +136,7 @@
         ntfs3g
         shared-mime-info
         udiskie
-        vim
+        unzip
         wget
         xfce.xfce4-power-manager
         xorg.xmodmap

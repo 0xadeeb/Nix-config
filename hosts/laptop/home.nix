@@ -30,7 +30,19 @@
     };
 
     home.file.".zshrc" = {
-        source = ../../modules/dot-zshrc;
+        source = ../../modules/user-configs/dot-zshrc;
+    };
+
+    # Bluetooth
+    services.blueman-applet.enable = true;
+
+    # Screenshots
+    services.flameshot.settings = {
+        General = {
+            savePath = "~/Pictures/ScreenShots";
+            savePathFixed = true;
+            showStartupLaunchMessage = false;
+        };
     };
 
     home.packages = with pkgs; [
@@ -52,6 +64,8 @@
         flameshot
         exa
         gcc
+        gdb
+        ghc
         gvfs
         htop
         libreoffice
@@ -59,10 +73,11 @@
         lxappearance
         mpv
         neofetch
-        notify
+        parcellite
         picom-jonaburg
         polybar
         procs
+        python39
         ranger
         ripgrep
         rofi
