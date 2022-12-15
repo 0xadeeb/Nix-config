@@ -3,6 +3,7 @@
 {
     imports = [
         ../../modules/dev.nix
+        ../../modules/theme.nix
     ];
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
@@ -52,12 +53,10 @@
         betterlockscreen
         bluez
         brave
-        catppuccin-gtk
         cinnamon.nemo
         cmake
         conky
         dunst
-        dracula-theme
         emacs
         fd
         feh
@@ -70,7 +69,6 @@
         htop
         libreoffice
         lm_sensors
-        lxappearance
         mpv
         neofetch
         parcellite
