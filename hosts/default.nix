@@ -11,17 +11,17 @@ let
     lib = nixpkgs.lib;
 in
 {
-    laptop = lib.nixosSystem {
+    "HpPavilion" = lib.nixosSystem {
         specialArgs = {
             inherit pkgs attrs user location;
         };
         modules = [
-            ./laptop
+            ./hp-pavilion
             ./configuration.nix
             home-manager.nixosModules.home-manager {        # Home-Manager module that is used.
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users.${user} = import ./laptop/home.nix;
+                home-manager.users.${user} = import ./hp-pavilion/home.nix;
             }
         ];
     };

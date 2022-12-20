@@ -4,6 +4,8 @@
     imports = [
         ../../modules/dev.nix
         ../../modules/theme.nix
+        ../../modules/user-configs/shells.nix
+        ../../modules/user-configs/aliases.nix
     ];
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
@@ -23,16 +25,16 @@
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
-    programs.zsh = {
-        enable = true;
-        oh-my-zsh = {
-            enable = true;
-        };
-    };
+    # programs.zsh = {
+    #     enable = true;
+    #     oh-my-zsh = {
+    #         enable = true;
+    #     };
+    # };
 
-    home.file.".zshrc" = {
-        source = ../../modules/user-configs/dot-zshrc;
-    };
+    # home.file.".zshrc" = {
+    #     source = ../../modules/user-configs/dot-zshrc;
+    # };
 
     # Bluetooth
     services.blueman-applet.enable = true;
@@ -46,6 +48,13 @@
         };
     };
 
+    # Application settings
+    dconf.settings = {
+        "org/nemo/preferences" = {
+            click-policy = "single";
+        };
+    };
+
     home.packages = with pkgs; [
         alacritty
         alttab
@@ -56,7 +65,6 @@
         cinnamon.nemo
         cmake
         conky
-        dunst
         emacs
         fd
         feh
@@ -65,9 +73,11 @@
         gcc
         gdb
         ghc
+        gnome.dconf-editor
         gvfs
         htop
         libreoffice
+        libnotify
         lm_sensors
         mpv
         neofetch
@@ -81,7 +91,6 @@
         rofi
         snapper
         snapper-gui
-        starship
         stow
         taffybar
         tdesktop

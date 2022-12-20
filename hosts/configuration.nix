@@ -15,7 +15,7 @@
         allowUnfree = true;
     };
 
-    networking.hostName = "Nixos"; # Define your hostname.
+    networking.hostName = "HpPavilion"; # Define your hostname.
     # Pick only one of the below networking options.
     # networking.wireless.enable = true;    # Enables wireless support via wpa_supplicant.
     networking.networkmanager.enable = true;    # Easiest to use and most distros use this by default.
@@ -73,6 +73,7 @@
 
 
     # Power manager
+    powerManagement.enable = true;
     services.auto-cpufreq.enable = true;
     services.upower = {
         enable = true;
@@ -101,7 +102,11 @@
     # Security
     security.polkit.enable = true;
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
+    # Define a user account.
+    users.users.root = {
+        isSystemUser = true;
+        shell = pkgs.zsh;
+    };
     users.users.adeeb = {
         isNormalUser = true;
         extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
@@ -135,6 +140,7 @@
         networkmanagerapplet
         ntfs3g
         shared-mime-info
+        starship
         udiskie
         unzip
         wget
