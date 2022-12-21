@@ -6,7 +6,7 @@
     la = "exa -a";
     ll = "exa -l";
     lla = "exa -al";
-    lt = "exa -aT --color=always --group-directories-first";
+    lt = "exa -aT --color=always --group-directories-first --ignore-glob=.git";
     grep = "grep --color=auto";
     df = "df -h";
     du = "du -h";
@@ -17,7 +17,7 @@
     ln = "ln -i";
     eb = "earbuds";
     ps = "procs";
-    cdr = "cd $(git rev-parse --show-toplevel)\"";
+    cdr = "cd \"$(git rev-parse --show-toplevel)\"";
     emacs = "emacs -nw -Q";
   };
 }

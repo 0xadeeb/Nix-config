@@ -113,13 +113,9 @@
         shell = pkgs.zsh;
         initialPassword = "password";
     };
-    programs.zsh.enable = true;
 
     # Splash screen
     boot.plymouth.enable = true;
-
-    # Crontabs
-    services.fcron.enable = true;
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget

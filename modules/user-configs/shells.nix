@@ -25,6 +25,8 @@
     };
 
     initExtra = ''
+      # Always starting with insert mode for each command line
+      ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
       ZVM_VI_INSERT_ESCAPE_BINDKEY=fj
       ZVM_KEYTIMEOUT=0.15
 
