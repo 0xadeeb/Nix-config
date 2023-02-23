@@ -21,7 +21,7 @@
     networking.networkmanager.enable = true;    # Easiest to use and most distros use this by default.
 
     # Set your time zone.
-    time.timeZone = "Asia/Dubai";
+    time.timeZone = "Asia/Kolkata";
 
     # Configure network proxy if necessary
     # networking.proxy.default = "http://user:password@proxy:port/";
@@ -55,16 +55,18 @@
                 };
             };
             displayManager = {
-                defaultSession = "none+xmonad";
+                defaultSession = "gnome";
+                gdm.enable = true;
                 startx.enable = true;
-                lightdm = {
-                    enable = true;
-                    greeters.enso = {
-                        enable = true;
-                        blur = true;
-                    };
-                };
+                # lightdm = {
+                #     enable = true;
+                #     greeters.enso = {
+                #         enable = true;
+                #         blur = true;
+                #     };
+                # };
             };
+            desktopManager.gnome.enable = true;
         };
         gvfs.enable = true;
         udisks2.enable = true;
@@ -99,8 +101,56 @@
     # Enable touchpad support (enabled default in most desktopManager).
     services.xserver.libinput.enable = true;
 
+    # Virtualization
+    virtualisation = {
+        libvirtd.enable = true;
+        virtualbox.host = {
+            enable = true;
+            enableExtensionPack = true;
+        };
+        docker = {
+            enable = true;
+            storageDriver = "btrfs";
+        };
+    };
+
     # Security
     security.polkit.enable = true;
+    security.polkit.extraConfig = ''
+        polkit.addRule(function(action, subject) {
+        var YES = polkit.Result.YES;
+        var permission = {
+            // only required for udisks1:
+            "org.freedesktop.udisks.filesystem-mount": YES,
+            "org.freedesktop.udisks.filesystem-mount-system-internal": YES,
+            "org.freedesktop.udisks.luks-unlock": YES,
+            "org.freedesktop.udisks.drive-eject": YES,
+            "org.freedesktop.udisks.drive-detach": YES,
+            // only required for udisks2:
+            "org.freedesktop.udisks2.filesystem-mount": YES,
+            "org.freedesktop.udisks2.filesystem-mount-system": YES,
+            "org.freedesktop.udisks2.encrypted-unlock": YES,
+            "org.freedesktop.udisks2.encrypted-unlock-system": YES,
+            "org.freedesktop.udisks2.eject-media": YES,
+            "org.freedesktop.udisks2.power-off-drive": YES,
+            // required for udisks2 if using udiskie from another seat (e.g. systemd):
+            "org.freedesktop.udisks2.filesystem-mount-other-seat": YES,
+            "org.freedesktop.udisks2.encrypted-unlock-other-seat": YES,
+            "org.freedesktop.udisks2.eject-media-other-seat": YES,
+            "org.freedesktop.udisks2.power-off-drive-other-seat": YES
+        };
+        if (subject.isInGroup("users")) {
+            return permission[action.id];
+        }
+        });
+        /* Allow users in mykvm group to manage the libvirt daemon without authentication */
+        polkit.addRule(function(action, subject) {
+            if (action.id == "org.libvirt.unix.manage" &&
+                subject.isInGroup("mykvm")) {
+                    return polkit.Result.YES;
+            }
+        });
+    '';
 
     # Define a user account.
     users.users.root = {
@@ -109,7 +159,7 @@
     };
     users.users.adeeb = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+        extraGroups = [ "wheel" "docker" "libvirtd" "qemu-libvirtd" ];
         shell = pkgs.zsh;
         initialPassword = "password";
     };
@@ -122,25 +172,30 @@
     programs.vim.defaultEditor = true;
     environment.systemPackages = with pkgs; [
         brightnessctl
+        dbus
         dunst
-        fcron
         git
         glib
         gparted
         gnome.zenity
+        gnome.gnome-tweaks
         gnumake
         lxqt.lxqt-policykit
         killall
         kitty
+        libtool
         lsb-release
         networkmanagerapplet
         ntfs3g
+        pkgconfig
         shared-mime-info
         starship
         udiskie
         unzip
         wget
         xfce.xfce4-power-manager
+        gnome.gnome-power-manager
+        gnome.gnome-session
         xorg.xmodmap
     ];
 

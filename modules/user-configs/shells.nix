@@ -23,7 +23,6 @@
         "zsh-vi-mode"
       ];
     };
-
     initExtra = ''
       # Always starting with insert mode for each command line
       ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
@@ -61,4 +60,12 @@
     enableBashIntegration = true;
     enableZshIntegration = true;
   };
+
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
 }

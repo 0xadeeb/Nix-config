@@ -11,7 +11,8 @@ let
     lib = nixpkgs.lib;
 in
 {
-    "HpPavilion" = lib.nixosSystem {
+    HpPavilion = lib.nixosSystem {
+        inherit system;
         specialArgs = {
             inherit pkgs attrs user location;
         };

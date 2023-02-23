@@ -5,11 +5,12 @@ let
 in
 {
     imports = [
-        ../../modules/dev.nix
+        # ../../modules/dev.nix
         ../../modules/theme.nix
-        ../../modules/user-configs/shells.nix
         ../../modules/user-configs/aliases.nix
-    ];
+        ../../modules/user-configs/automation.nix
+        ../../modules/user-configs/shells.nix
+    ] ;
     # Home Manager needs a bit of information about you and the
     # paths it should manage.
     home.username = "${userName}";
@@ -38,79 +39,12 @@ in
     services.blueman-applet.enable = true;
 
     # Screenshots
+    services.flameshot.enable = true;
     services.flameshot.settings = {
         General = {
-            savePath = "~/Pictures/ScreenShots";
+            savePath = "${homeDir}/Pictures/ScreenShots";
             savePathFixed = true;
             showStartupLaunchMessage = false;
-        };
-    };
-
-    # Automation for user
-
-    home.file.".local/bin" = {
-        source = ../../modules/user-configs/dot-local/bin;
-        recursive = true;
-    };
-
-    systemd.user.sessionVariables = {
-        # not the best option but idk any other way
-        PATH = "/run/current-system/sw/bin:/etc/profiles/per-user/${userName}/bin:$PATH";
-    };
-    systemd.user.services = {
-        battery-notifier = {
-            Unit = {
-                Description = "Service that notifies when battery is low";
-                After = "network.target";
-            };
-            Service = {
-                WorkingDirectory = "%h";
-                ExecStart = "%h/.local/bin/notifyBatteryStatus.sh";
-                Type = "oneshot";
-            };
-            Install = {
-                WantedBy = [ "default.target" ];
-            };
-        };
-        delete-trash = {
-            Unit = {
-                Description = "Service that empties trash older than 14 days";
-                After = "network.target";
-            };
-            Service = {
-                WorkingDirectory = "%h";
-                ExecStart = "/usr/bin/env trash-empty 14 -f";
-                Type = "oneshot";
-            };
-            Install = {
-                WantedBy = [ "default.target" ];
-            };
-        };
-    };
-    systemd.user.timers = {
-        battery-notifier = {
-            Unit = {
-                Description = "Timer for battery notifier service";
-            };
-            Timer = {
-                OnBootSec = "0min";
-                OnCalendar = "*-*-* *:*:00";
-            };
-            Install = {
-                WantedBy = [ "timers.target" ];
-            };
-        };
-        delete-trash = {
-            Unit = {
-                Description = "Timer for delete trash service";
-            };
-            Timer = {
-                OnBootSec = "0min";
-                OnCalendar = "*-*-* 00:00:00";
-            };
-            Install = {
-                WantedBy = [ "timers.target" ];
-            };
         };
     };
 
@@ -131,11 +65,14 @@ in
         cinnamon.nemo
         cmake
         conky
+        crate2nix
         emacs
+        exa
         fd
         feh
         flameshot
-        exa
+        firefox-bin
+        fzf
         gcc
         gdb
         ghc
@@ -144,14 +81,17 @@ in
         htop
         libreoffice
         libnotify
+        libvterm
         lm_sensors
         mpv
         neofetch
         parcellite
         picom-jonaburg
+        pkgconfig
         polybar
         procs
-        python39
+        python3
+        python3Packages.pip
         ranger
         ripgrep
         rofi
