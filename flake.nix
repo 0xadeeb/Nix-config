@@ -7,9 +7,12 @@
             url = github:nix-community/home-manager;
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        doom-emacs = {           # Doom emacs
+            url = github:nix-community/nix-doom-emacs;
+        };
     };
 
-    outputs = { self, nixpkgs, home-manager, ... } @ attrs:
+    outputs = { self, nixpkgs, home-manager, doom-emacs, ... } @ attrs:
     let
         user = "adeeb";
         location = "$HOME/.setup";
@@ -18,7 +21,7 @@
         nixosConfigurations = (
             import ./hosts {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs home-manager user location;
+                inherit attrs nixpkgs home-manager doom-emacs user location;
             }
         );
     };

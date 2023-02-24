@@ -29,12 +29,12 @@
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_GB.UTF-8";
-    console = {
-        earlySetup = true;
-        packages = with pkgs; [ terminus_font ];
-        font = "ter-v32n";
-        # useXkbConfig = true; # use xkbOptions in tty.
-    };
+    # console = {
+    #     earlySetup = true;
+    #     packages = with pkgs; [ terminus_font ];
+    #     font = "ter-v32n";
+    #     # useXkbConfig = true; # use xkbOptions in tty.
+    # };
 
     services = {
         # Enable the X11 windowing system.

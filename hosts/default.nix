@@ -1,4 +1,4 @@
-{ lib, attrs, nixpkgs, home-manager, user, location, ... }:
+{ lib, attrs, nixpkgs, home-manager, doom-emacs, user, location, ... }:
 
 let
     system = "x86_64-linux";
@@ -22,7 +22,16 @@ in
             home-manager.nixosModules.home-manager {        # Home-Manager module that is used.
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-                home-manager.users.${user} = import ./hp-pavilion/home.nix;
+                home-manager.users.${user} = {
+                    imports = [
+                        ./hp-pavilion/home.nix
+                        doom-emacs.hmModule
+                    ];
+                    programs.doom-emacs = {
+                        enable = true;
+                        doomPrivateDir = ../modules/user-configs/dot-doom.d;
+                    };
+                };
             }
         ];
     };

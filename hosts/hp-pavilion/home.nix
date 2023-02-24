@@ -55,6 +55,9 @@ in
         };
     };
 
+    # Doom emacs config
+    services.emacs.enable = true;
+
     home.packages = with pkgs; [
         alacritty
         alttab
@@ -66,11 +69,12 @@ in
         cmake
         conky
         crate2nix
-        emacs
+        # emacs
         exa
         fd
         feh
         flameshot
+        fira-code
         firefox-bin
         fzf
         gcc
