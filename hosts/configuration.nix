@@ -5,9 +5,7 @@
 { config, pkgs, ... }:
 
 {
-    imports =
-        [
-        ];
+    imports = [];
 
     # Nix Packages collection configuration
     nixpkgs.config = {
