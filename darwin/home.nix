@@ -27,10 +27,13 @@ in
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
+        alacritty
         fd
         neovim
+        nodejs
         ollama
         ripgrep
+        rustup
         zoxide
     ];
 

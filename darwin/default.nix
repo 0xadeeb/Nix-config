@@ -1,4 +1,4 @@
-{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, user, location, ... }:
+{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, mac-app-util, user, location, ... }:
 
 let
     system = "aarch64-darwin";
@@ -16,10 +16,14 @@ in
         modules = [
             # ./mac-mchip 
             ./darwin-configuration.nix
+            mac-app-util.darwinModules.default
             home-manager.darwinModules.home-manager
             {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.sharedModules = [
+                    mac-app-util.homeManagerModules.default
+                ];
                 home-manager.users.${user} = {
                     imports = [
                         ./home.nix

@@ -3,10 +3,10 @@
 
     inputs = {
         # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix packages
-        nixpkgs.url = github:nixos/nixpkgs/nixos-24.05; # Stable Nix Packages
+        nixpkgs.url = github:nixos/nixpkgs/nixos-24.11; # Stable Nix Packages
 
         home-manager = {         # Home Package Management
-            url = github:nix-community/home-manager/release-24.05;
+            url = github:nix-community/home-manager/release-24.11;
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
@@ -32,10 +32,22 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
+        # For nix in MacOS
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+        mac-app-util.url = "github:hraban/mac-app-util";
     };
 
-    outputs = { self, nixpkgs, home-manager, darwin, nix-homebrew, doom-emacs, ... } @ attrs:
+    outputs = {
+      self,
+      nixpkgs,
+      home-manager,
+      darwin,
+      nix-homebrew,
+      doom-emacs,
+      mac-app-util,
+      ...
+    } @ attrs:
     let
         location = "$HOME/.setup";
     in
@@ -50,7 +62,7 @@
         darwinConfigurations = (
             import ./darwin {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs home-manager darwin nix-homebrew location;
+                inherit attrs nixpkgs home-manager darwin nix-homebrew mac-app-util location;
                 user = "ahadisee";
             }
         );
