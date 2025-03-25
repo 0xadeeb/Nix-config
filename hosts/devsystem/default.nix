@@ -1,10 +1,14 @@
 {    lib, pkgs, attrs, user, location, ... }:
 
 {
-    # Use nix flakes
+    # Run the following command to setup the first time
+    # home-manager --extra-experimental-features "nix-command flakes" switch --flake <path>#devsys
     nix = {
-        package = pkgs.nixFlakes;
-        extraOptions = "experimental-features = nix-command flakes";
+        package = pkgs.nixVersions.stable;
+        extraOptions = ''
+          experimental-features = nix-command
+          experimental-features = nix-command flakes
+        '';
     };
 
 }
