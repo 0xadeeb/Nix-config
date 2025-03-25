@@ -29,6 +29,7 @@ in
     home.packages = with pkgs; [
         alacritty
         fd
+        gh
         neovim
         nodejs
         ollama

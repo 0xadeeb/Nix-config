@@ -11,11 +11,22 @@
     programs.zsh.enable = true;
 
     environment.systemPackages = with pkgs; [
+        eza
         htop
         mkalias
-        starship
         tmux
     ];
+
+    # Use nix flakes
+    nix = {
+      package = pkgs.nix;
+      gc = {
+        automatic = true;
+        interval.Day = 7;
+        options = "--delete-older-than 7d";
+      };
+      extraOptions = "experimental-features = nix-command flakes";
+    };
 
     homebrew = {
         enable = true;
@@ -24,6 +35,11 @@
             autoUpdate = false;
             cleanup = "zap";
         };
+        brews = [
+          "powerlevel10k"
+          "zsh-autosuggestions"
+          "zsh-syntax-highlighting"
+        ];
         casks = [
             "iterm2"
             "vlc"
