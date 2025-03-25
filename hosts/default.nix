@@ -35,4 +35,15 @@ in
             }
         ];
     };
+
+    devsys = home-manager.lib.homeManagerConfigration {
+        inherit system;
+        specialArgs = {
+            inherit pkgs attrs user;
+        };
+        modules = [
+            # ./devsystem
+            ./devsystem/home.nix
+        ];
+    };
 }

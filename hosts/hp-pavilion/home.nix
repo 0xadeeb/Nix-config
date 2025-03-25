@@ -66,7 +66,6 @@ in
         bluez
         brave
         cinnamon.nemo
-        cmake
         conky
         crate2nix
         # emacs
@@ -77,9 +76,6 @@ in
         fira-code
         firefox-bin
         fzf
-        gcc
-        gdb
-        ghc
         gnome.dconf-editor
         gvfs
         htop
@@ -94,8 +90,6 @@ in
         pkgconfig
         polybar
         procs
-        python3
-        python3Packages.pip
         ranger
         ripgrep
         rofi
