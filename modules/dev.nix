@@ -40,6 +40,7 @@ let
     ];
     # Python
     python = [
+      pyright
       python3
       python311Packages.pip
       python311Packages.python-lsp-server
@@ -52,9 +53,9 @@ let
   };
 in
 {
-  home.packages = builtins.concatLists (
-    builtins.attrValues (
-      builtins.intersectAttrs languages languagePackages
+  home.packages = with builtins; concatLists (
+    attrValues (
+      intersectAttrs languages languagePackages
     )
   );
 }
