@@ -11,10 +11,8 @@
     programs.zsh.enable = true;
 
     environment.systemPackages = with pkgs; [
-        eza
-        htop
+        # Keep only truly system-wide packages here
         mkalias
-        tmux
     ];
 
     # Use nix flakes
@@ -50,6 +48,10 @@
             "Elmedia" = 1044549675;
         };
     };
-    services.nix-daemon.enable = true;
+
+    # Set a fixed primary user for system-wide homebrew management
+    # This should be your main admin user
+    system.primaryUser = user;
+
     system.stateVersion = 5;
 }

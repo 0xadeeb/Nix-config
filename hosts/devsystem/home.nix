@@ -22,6 +22,7 @@ in
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
+      fzf
       htop
     ];
 

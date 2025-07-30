@@ -28,13 +28,21 @@ in
 
     home.packages = with pkgs; [
         alacritty
+        direnv
+        eza
         fd
         gh
+        go
+        htop
+        lldb
+        llvm
         neovim
-        nodejs
+        nix-direnv
+        nodejs_22
         ollama
         ripgrep
         rustup
+        tmux
         zoxide
     ];
 

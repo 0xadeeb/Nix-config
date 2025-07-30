@@ -2,19 +2,29 @@
     description = "Nix config using flakes";
 
     inputs = {
-        # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Nix packages
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Stable Nix Packages
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable"; # Unstable Nix packages
+        nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05"; # Stable Nix Packages
 
-        home-manager = {         # Home Package Management
-            url = "github:nix-community/home-manager/release-24.11";
+        home-manager = {         # Home Package Management (Unstable)
+            url = "github:nix-community/home-manager/master";
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        # MacOS Package Management
+        home-manager-stable = {  # Home Package Management (Stable)
+            url = "github:nix-community/home-manager/release-25.05";
+            inputs.nixpkgs.follows = "nixpkgs-stable";
+        };
+
+        # MacOS Package Management (Unstable)
         darwin = {
-            # url = "github:lnl7/nix-darwin/master";
-            url = "github:LnL7/nix-darwin/nix-darwin-24.11";
+            url = "github:lnl7/nix-darwin/master";
             inputs.nixpkgs.follows = "nixpkgs";
+        };
+
+        # MacOS Package Management (Stable)
+        darwin-stable = {
+            url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+            inputs.nixpkgs.follows = "nixpkgs-stable";
         };
 
         # For nix in MacOS
@@ -42,8 +52,11 @@
     outputs = {
       self,
       nixpkgs,
+      nixpkgs-stable,
       home-manager,
+      home-manager-stable,
       darwin,
+      darwin-stable,
       nix-homebrew,
       doom-emacs,
       mac-app-util,
@@ -56,21 +69,21 @@
         nixosConfigurations = (
             import ./hosts {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs home-manager doom-emacs location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location;
                 user = "adeeb";
             }
         );
         darwinConfigurations = (
             import ./darwin {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs home-manager darwin nix-homebrew mac-app-util location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable darwin darwin-stable nix-homebrew mac-app-util location;
                 user = "ahadisee";
             }
         );
         homeConfigurations = (
             import ./hosts {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs home-manager doom-emacs location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location;
                 user = "devuser";
             }
         );
