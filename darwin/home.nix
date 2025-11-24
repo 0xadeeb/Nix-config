@@ -28,9 +28,12 @@ in
 
     home.packages = with pkgs; [
         alacritty
+        codex
+        copilot-cli
         direnv
         eza
         fd
+        ffmpeg
         gh
         go
         htop
@@ -40,9 +43,12 @@ in
         nix-direnv
         nodejs_22
         ollama
+        obsidian
+        python311
         ripgrep
         rustup
         tmux
+        wget
         zoxide
     ];
 

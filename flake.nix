@@ -29,6 +29,14 @@
 
         # For nix in MacOS
         nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+        homebrew-core = {
+            url = "github:Homebrew/homebrew-core";
+            flake = false;
+        };
+        homebrew-cask = {
+            url = "github:Homebrew/homebrew-cask";
+            flake = false;
+        };
 
         mac-app-util.url = "github:hraban/mac-app-util";
 

@@ -14,6 +14,7 @@ in
             inherit pkgs attrs user location;
         };
         modules = [
+            nix-homebrew.darwinModules.nix-homebrew
             # ./mac-mchip 
             ./darwin-configuration.nix
             mac-app-util.darwinModules.default
