@@ -29,16 +29,19 @@ in
     home.packages = with pkgs; [
         alacritty
         codex
-        copilot-cli
+        github-copilot-cli
         direnv
         eza
         fd
         ffmpeg
+        fzf
         gh
         go
         htop
+        imagemagick
         lldb
         llvm
+        mermaid-cli
         neovim
         nix-direnv
         nodejs_22
@@ -49,6 +52,7 @@ in
         rustup
         tmux
         wget
+        zed-editor
         zoxide
     ];
 
