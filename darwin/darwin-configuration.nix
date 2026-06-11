@@ -54,6 +54,7 @@
           "mas"
         ];
         casks = [
+            "cloudflare-warp"
             "iterm2"
             "vlc"
             "font-jetbrains-mono"

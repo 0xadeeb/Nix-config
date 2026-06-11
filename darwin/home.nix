@@ -27,6 +27,7 @@ in
     programs.home-manager.enable = true;
 
     home.packages = with pkgs; [
+        acli
         alacritty
         codex
         github-copilot-cli

@@ -1,19 +1,26 @@
-{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, mac-app-util, user, location, ... }:
+{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, mac-app-util, user, location, zoxideOverlay, ... }:
 
 let
     system = "aarch64-darwin";
     pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+            zoxideOverlay
+        ];
     };
 in
 {
     MacBookMChip = darwin.lib.darwinSystem {
         inherit system;
         specialArgs = {
-            inherit pkgs attrs user location;
+            inherit attrs user location;
         };
         modules = [
+            {
+                nixpkgs.config.allowUnfree = true;
+                nixpkgs.overlays = [ zoxideOverlay ];
+            }
             nix-homebrew.darwinModules.nix-homebrew
             # ./mac-mchip 
             ./darwin-configuration.nix

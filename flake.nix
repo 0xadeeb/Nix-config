@@ -72,26 +72,27 @@
     } @ attrs:
     let
         location = "$HOME/.setup";
+        zoxideOverlay = import ./overlays/zoxide.nix;
     in
     {
         nixosConfigurations = (
             import ./hosts {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location zoxideOverlay;
                 user = "adeeb";
             }
         );
         darwinConfigurations = (
             import ./darwin {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable darwin darwin-stable nix-homebrew mac-app-util location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable darwin darwin-stable nix-homebrew mac-app-util location zoxideOverlay;
                 user = "ahadisee";
             }
         );
         homeConfigurations = (
             import ./hosts {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable doom-emacs location zoxideOverlay;
                 user = "devuser";
             }
         );

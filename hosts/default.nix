@@ -1,4 +1,4 @@
-{ lib, attrs, nixpkgs, home-manager, doom-emacs, user, location, ... }:
+{ lib, attrs, nixpkgs, home-manager, doom-emacs, user, location, zoxideOverlay, ... }:
 
 let
     system = "x86_64-linux";
@@ -6,6 +6,9 @@ let
     pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        overlays = [
+            zoxideOverlay
+        ];
     };
 
     lib = nixpkgs.lib;
@@ -14,9 +17,13 @@ in
     HpPavilion = lib.nixosSystem {
         inherit system;
         specialArgs = {
-            inherit pkgs attrs user location;
+            inherit attrs user location;
         };
         modules = [
+            {
+                nixpkgs.config.allowUnfree = true;
+                nixpkgs.overlays = [ zoxideOverlay ];
+            }
             ./hp-pavilion
             ./configuration.nix
             home-manager.nixosModules.home-manager {        # Home-Manager module that is used.
