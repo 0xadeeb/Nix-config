@@ -39,6 +39,8 @@
         };
 
         mac-app-util.url = "github:hraban/mac-app-util";
+        # herdr.url = "git+https://github.com/ogulcancelik/herdr.git?ref=refs/tags/v0.7.0";
+        herdr.url = "github:ogulcancelik/herdr/v0.7.0";
 
         doom-emacs = {           # Doom emacs
             url = "github:nix-community/nix-doom-emacs";
@@ -68,6 +70,7 @@
       nix-homebrew,
       doom-emacs,
       mac-app-util,
+      herdr,
       ...
     } @ attrs:
     let
@@ -85,7 +88,7 @@
         darwinConfigurations = (
             import ./darwin {
                 inherit (nixpkgs) lib;
-                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable darwin darwin-stable nix-homebrew mac-app-util location zoxideOverlay;
+                inherit attrs nixpkgs nixpkgs-stable home-manager home-manager-stable darwin herdr darwin-stable nix-homebrew mac-app-util location zoxideOverlay;
                 user = "ahadisee";
             }
         );

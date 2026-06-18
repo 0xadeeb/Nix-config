@@ -55,10 +55,12 @@
         ];
         casks = [
             "cloudflare-warp"
-            "iterm2"
-            "vlc"
             "font-jetbrains-mono"
             "font-jetbrains-mono-nerd-font"
+            "iterm2"
+            "markedit"
+            "vlc"
+            "zed"
         ];
         # masApps = {
         #     "Elmedia" = 1044549675;

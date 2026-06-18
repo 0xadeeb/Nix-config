@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, herdrPackage, ... }:
 let
     userName = "ahadisee";
     homeDir = "/Users/ahadisee";
@@ -39,6 +39,7 @@ in
         gh
         go
         htop
+        herdrPackage
         imagemagick
         lldb
         llvm
@@ -53,7 +54,6 @@ in
         rustup
         tmux
         wget
-        zed-editor
         zoxide
     ];
 

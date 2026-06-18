@@ -1,4 +1,4 @@
-{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, mac-app-util, user, location, zoxideOverlay, ... }:
+{lib, attrs, nixpkgs, home-manager, nix-homebrew, darwin, mac-app-util, user, location, herdr, zoxideOverlay, ... }:
 
 let
     system = "aarch64-darwin";
@@ -29,6 +29,9 @@ in
             {
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = {
+                    herdrPackage = herdr.packages.${system}.default;
+                };
                 home-manager.sharedModules = [
                     mac-app-util.homeManagerModules.default
                 ];
