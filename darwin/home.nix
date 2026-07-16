@@ -29,9 +29,13 @@ in
     home.packages = with pkgs; [
         acli
         alacritty
+        antigravity
+        bun
+        claude-code
         codex
         github-copilot-cli
         direnv
+        drawio
         eza
         fd
         ffmpeg
@@ -53,6 +57,7 @@ in
         ripgrep
         rustup
         tmux
+        uv
         wget
         zoxide
     ];

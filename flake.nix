@@ -39,8 +39,7 @@
         };
 
         mac-app-util.url = "github:hraban/mac-app-util";
-        # herdr.url = "git+https://github.com/ogulcancelik/herdr.git?ref=refs/tags/v0.7.0";
-        herdr.url = "github:ogulcancelik/herdr/v0.7.0";
+        herdr.url = "github:ogulcancelik/herdr/v0.7.1";
 
         doom-emacs = {           # Doom emacs
             url = "github:nix-community/nix-doom-emacs";
