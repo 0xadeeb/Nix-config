@@ -2,7 +2,7 @@
   flake.modules.homeManager.shell = { config, pkgs, ... }:
 {
   programs.zsh = {
-    enable = true;
+    enable = pkgs.stdenv.isLinux;
     autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;

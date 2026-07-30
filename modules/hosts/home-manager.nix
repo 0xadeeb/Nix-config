@@ -9,6 +9,7 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      backupFileExtension = "backup";
       # backupCommand = "trash"; # requires trash-cli
       extraSpecialArgs = {
         inherit inputs;
@@ -32,6 +33,7 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      backupFileExtension = "backup";
       extraSpecialArgs = {
         inherit inputs;
         inherit (config) host;

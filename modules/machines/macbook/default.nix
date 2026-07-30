@@ -29,6 +29,8 @@ in
       base
       nix-homebrew
       homebrew
+      work-mac
+      personal-mac
       
       # Inline machine configuration
       ({ pkgs, ... }: {
@@ -49,9 +51,9 @@ in
             core
             git
             
-            # The cross-platform profiles (Mac uses both work and personal)
-            work
-            personal
+            # The cross-platform profiles
+            work-common
+            personal-common
           ];
         };
       })

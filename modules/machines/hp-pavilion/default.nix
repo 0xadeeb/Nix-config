@@ -59,7 +59,8 @@ in
             doom
             tmux
             linux-automation
-            personal
+            personal-common
+            personal-linux
           ];
         };
       })
