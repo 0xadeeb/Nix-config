@@ -1,1 +1,0 @@
-I need more information about the feature you want to design. Please describe the problem you're trying to solve or the functionality you want to implement, and I'll generate a comprehensive design document for you.
