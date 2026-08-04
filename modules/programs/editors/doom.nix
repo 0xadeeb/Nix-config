@@ -9,7 +9,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.doom-emacs = {
       enable = true;
-      doomPrivateDir = ../../dotfiles/dot-doom.d;
+      doomPrivateDir = ../../../dotfiles/dot-doom.d;
     };
     
     # Dependencies required by Doom Emacs

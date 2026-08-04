@@ -42,8 +42,8 @@
       }
 
       # Source dotfiles zshrc if it exists
-      if [ -f ${../../dotfiles/dot-zshrc} ]; then
-        source ${../../dotfiles/dot-zshrc}
+      if [ -f ${../../../dotfiles/dot-zshrc} ]; then
+        source ${../../../dotfiles/dot-zshrc}
       fi
     '';
   };
