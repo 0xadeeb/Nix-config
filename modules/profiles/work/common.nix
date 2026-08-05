@@ -6,6 +6,7 @@
 
     home.packages = with pkgs; [
       acli
+      google-chrome
       ollama
     ];
 

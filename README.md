@@ -1,43 +1,35 @@
-# Nix Configuration with Flakes
+# Nix Configuration
 
-A modular Nix configuration supporting NixOS and macOS (Darwin).
+A modular, multi-platform Nix configuration utilizing `flake-parts`, `import-tree`, and a dendritic architecture.
 
-## 🚀 Features
+## Features
 
-- **Multi-Platform**: NixOS, macOS (Darwin), and standalone Home Manager
-- **Modular Architecture**: Organized with separate system and user configurations
-- **Home Manager Integration**: User-specific package and configuration management
-- **Dual Channel Support**: Both stable and unstable nixpkgs available
+- **Multi-Platform**: Supports NixOS and macOS.
+- **Dendritic Architecture**: Feature-based folder structure organized by functional categories.
+- **Flake Parts & Import Tree**: Simplified module loading and architecture scaling.
+- **Profiles & Hosts**: Clear separation between core system settings (hosts) and user environments (profiles).
+- **Home Manager Integration**: Integrated user-specific package and dotfile management.
 
-## 📁 Structure
+## Structure
 
-```
+```text
 .
-├── flake.nix                    # Main flake configuration
-├── darwin/                      # macOS-specific configurations
-│   ├── default.nix             # Darwin system definitions
-│   ├── darwin-configuration.nix # System-wide settings
-│   └── home.nix                # User configurations
-├── hosts/                       # NixOS host configurations
-│   ├── configuration.nix       # Base configuration
-│   ├── default.nix            # Host definitions
-│   ├── devsystem/              # Development system
-│   └── hp-pavilion/            # Laptop configuration
-└── modules/                     # Shared modules
-    ├── dev.nix                 # Development tools
-    ├── theme.nix               # Theming
-    ├── system-configs/         # System-level configs
-    └── user-configs/           # User-level configs
+├── flake.nix        # Main flake entrypoint using flake-parts
+├── dotfiles/        # Raw configuration files
+├── overlays/        # Custom package overlays and modifications
+└── modules/         # Feature-based module tree loaded via import-tree
+    ├── core/        # Core settings and foundational configurations
+    ├── gui/         # Desktop environments and window managers
+    ├── hardware/    # Hardware-specific configurations
+    ├── hosts/       # Machine-specific entrypoints (system targets)
+    ├── profiles/    # User roles and environment definitions
+    ├── programs/    # User applications and CLI tools
+    ├── services/    # System and user services
+    ├── system/      # OS-level settings (networking, boot, etc.)
+    └── theme/       # System-wide theming and styling
 ```
 
-## 🎯 Architecture
-
-### Modular Design
-- **System configurations**: Platform-specific system settings
-- **User configurations**: Personal packages and dotfiles via Home Manager
-- **Shared modules**: Reusable components across different hosts
-
-## 🚀 Usage
+## Usage
 
 ### Prerequisites
 ```bash
@@ -51,7 +43,7 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 ```bash
 git clone https://github.com/0xadeeb/Nix-config.git ~/Nix-config
 cd ~/Nix-config
-darwin-rebuild switch --flake .#MacBookMChip
+darwin-rebuild switch --flake .#<hostname>
 ```
 
 #### NixOS
@@ -61,38 +53,22 @@ cd /etc/nixos
 sudo nixos-rebuild switch --flake .#<hostname>
 ```
 
-#### Home Manager Only
-```bash
-git clone https://github.com/0xadeeb/Nix-config.git ~/Nix-config
-cd ~/Nix-config
-home-manager switch --flake .#<username>
-```
+## Customization
 
-## ⚙️ Customization
+- **Dendritic Modules**: Add new features (programs, services, etc.) into their respective functional category under `modules/`.
+- **Profiles**: Define user experiences or roles in `modules/profiles/`.
+- **Hosts**: Create new machine configurations in `modules/hosts/` and import necessary profiles and core modules.
 
-### Adding New Hosts
-1. Create configuration in `hosts/` (NixOS) or `darwin/` (macOS)
-2. Add entry to respective `default.nix`
-3. Reference in `flake.nix` outputs
-
-### Package Management
-- **System packages**: Edit `darwin-configuration.nix` or host-specific configs
-- **User packages**: Modify `home.nix` or create user-specific configurations
-
-## 🔧 Maintenance
+## Maintenance
 
 ```bash
 # Update inputs
 nix flake update
 
 # Rebuild system
-darwin-rebuild switch --flake .#<config>          # macOS
-sudo nixos-rebuild switch --flake .#<config>      # NixOS
+darwin-rebuild switch --flake .#<hostname>      # macOS
+sudo nixos-rebuild switch --flake .#<hostname>  # NixOS
 
 # Garbage collection
 nix-collect-garbage -d
 ```
-
----
-
-**Author**: 0xadeeb
