@@ -43,6 +43,9 @@
         host = config.host;
         home.stateVersion = config.host.state.version;
       };
+      sharedModules = [
+        inputs.mac-app-util.homeManagerModules.default
+      ];
     };
   };
 
