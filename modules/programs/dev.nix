@@ -10,7 +10,7 @@ in
     })
     
     (lib.mkIf cfg.docker {
-      home.packages = with pkgs; [ nodePackages.dockerfile-language-server-nodejs ];
+      home.packages = with pkgs; [ dockerfile-language-server-nodejs ];
     })
     
     (lib.mkIf cfg.go {
@@ -25,12 +25,19 @@ in
       home.packages = with pkgs; [
         nodejs
         yarn
-        nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.vscode-json-languageserver
+        typescript
+        typescript-language-server
+        vscode-json-languageserver
       ];
     })
     
+    (lib.mkIf cfg.node {
+      home.packages = with pkgs; [
+        nodejs
+        bun
+      ];
+    })
+
     (lib.mkIf cfg.python {
       home.packages = with pkgs; [
         pyright
